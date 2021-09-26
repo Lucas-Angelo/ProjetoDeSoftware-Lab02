@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <title>Alugel de Carros</title>
+</head>
+<body>
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <div class="col-6 offset-md-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="aluguel-title text-center">
+                                <img src="./img/car.png" alt="Logo Aluguel">
+                                <h1>Aluguel de Carros</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <form id="formUsuario">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="txtLogin" class="form-label">Login</label>
+                                        <input required type="text" class="form-control" id="txtLogin" placeholder="Usuário">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="txtSenha" class="form-label">Senha</label>
+                                        <input required type="password" class="form-control" id="txtSenha" placeholder="Senha">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <button class="btn btn-md d-block w-100 btn-primary" id="btnSubmit" type="submit">
+                                            Entrar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#formUsuario").on("submit", function(ev){
+                ev.preventDefault()
+                $.ajax({
+                    url: "http://localhost:8080/usuarios/login",
+                    type: "post",
+                    data: {
+                        login: $("#txtLogin").val(),
+                        senha: $("#txtSenha").val(),
+                    },
+                    success: () => {
+                        alert('Usuario Logado')
+                        window.location.href = '/criarUsuario.html'
+                    },
+                    error: () => {
+                        alert('Usuário ou senha incorretos')
+                    }
+                });
+            })
+        });
+    </script>
+</body>
+</html>

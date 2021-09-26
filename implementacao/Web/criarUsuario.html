@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <title>Alugel de Carros</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="aluguel-title">
+                    <img src="./img/car.png" alt="Logo Aluguel">
+                    <h1>Aluguel de Carros</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <form id="formUsuario">
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.25788 26C2.25309 25.9998 2.24166 25.9994 2.22457 25.9981C2.18963 25.9957 2.13319 25.9902 2.06284 25.9785C1.91739 25.9542 1.73875 25.9076 1.57221 25.8243C1.40959 25.743 1.27739 25.6368 1.18361 25.4961C1.09401 25.3617 1 25.1375 1 24.75C1 23.8818 1.46304 21.8887 3.23836 20.1134C4.98436 18.3673 8.08589 16.75 13.5 16.75C18.9141 16.75 22.0156 18.3673 23.7616 20.1134C25.537 21.8887 26 23.8818 26 24.75C26 25.1375 25.906 25.3617 25.8164 25.4961C25.7226 25.6368 25.5904 25.743 25.4278 25.8243C25.2613 25.9076 25.0826 25.9542 24.9372 25.9785C24.8668 25.9902 24.8104 25.9957 24.7754 25.9981C24.7583 25.9994 24.7469 25.9998 24.7421 26H2.25788ZM17.5659 10.8159C16.4875 11.8942 15.025 12.5 13.5 12.5C11.975 12.5 10.5125 11.8942 9.43414 10.8159C8.3558 9.73753 7.75 8.27499 7.75 6.75C7.75 5.22501 8.3558 3.76247 9.43414 2.68414C10.5125 1.6058 11.975 1 13.5 1C15.025 1 16.4875 1.6058 17.5659 2.68414C18.6442 3.76247 19.25 5.22501 19.25 6.75C19.25 8.27499 18.6442 9.73753 17.5659 10.8159Z" stroke="black" stroke-width="2"/>
+                                        </svg>
+                                        <h3 class="d-inline">
+                                            Criar Usuário
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="txtNome" class="form-label">Nome</label>
+                                        <input required type="text" class="form-control" id="txtNome" placeholder="Escreva seu Nome (Obrigatório)">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="txtLogin" class="form-label">Login</label>
+                                        <input required type="text" class="form-control" id="txtLogin" placeholder="Escreva seu login (Obrigatório)">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="txtSenha" class="form-label">Senha</label>
+                                        <input required type="password" class="form-control" id="txtSenha" placeholder="Escreva uma senha (Obrigatório)">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <button class="btn btn-md d-block w-100 btn-primary" id="btnSubmit" type="submit">
+                                            Salvar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#formUsuario").on("submit", function(ev){
+                ev.preventDefault()
+                $.ajax({
+                    url: "http://localhost:8080/usuarios",
+                    type: "post",
+                    data: {
+                        nome: $("#txtNome").val(),
+                        login: $("#txtLogin").val(),
+                        senha: $("#txtSenha").val(),
+                    },
+                    success: () => {
+                        alert('e olha q deu')
+                    },
+                    error: () => {
+                        alert('num rolou')
+                    }
+                });
+            })
+        });
+    </script>
+</body>
+</html>
