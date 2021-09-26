@@ -22,9 +22,9 @@ public class AluguelCarrosApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Usuario usuario1 = new Usuario(null, "Gui");
-		Usuario usuario2 = new Usuario(null, "Henriq");
-		Usuario usuario3 = new Usuario(null, "Lucas");
+		Usuario usuario1 = new Usuario(null, "Gui", "gui", "supersenha");
+		Usuario usuario2 = new Usuario(null, "Henrique", "henrique", "supersenha");
+		Usuario usuario3 = new Usuario(null, "Lucas", "lucas", "supersenha");
 		usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2, usuario3));
 	}
 

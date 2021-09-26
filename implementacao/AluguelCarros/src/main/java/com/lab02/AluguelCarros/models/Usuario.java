@@ -2,10 +2,14 @@ package com.lab02.AluguelCarros.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Usuario implements Serializable {
@@ -17,13 +21,18 @@ public class Usuario implements Serializable {
 
     private String nome;
 
+    @Column(unique = true)
+    private String login;
+    private String senha;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nome) {
+    public Usuario(Integer id, String nome, String login, String senha) {
         this.id = id;
         this.nome = nome;
+        this.login = login;
+        this.senha = senha;
     }
 
     public Integer getId() {
@@ -40,6 +49,24 @@ public class Usuario implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getLogin() {
+        return this.login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    @JsonIgnore
+    public String getSenha() {
+        return this.senha;
+    }
+
+    @JsonProperty
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     @Override
