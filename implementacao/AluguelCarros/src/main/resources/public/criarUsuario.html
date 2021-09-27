@@ -76,11 +76,12 @@
                 $.ajax({
                     url: "http://localhost:8080/usuarios",
                     type: "post",
-                    data: {
+                    contentType: 'application/json',
+                    data: JSON.stringify({
                         nome: $("#txtNome").val(),
                         login: $("#txtLogin").val(),
                         senha: $("#txtSenha").val(),
-                    },
+                    }),
                     success: () => {
                         alert('e olha q deu')
                     },

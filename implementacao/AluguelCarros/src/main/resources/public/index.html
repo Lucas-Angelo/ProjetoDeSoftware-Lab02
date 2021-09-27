@@ -62,10 +62,11 @@
                 $.ajax({
                     url: "http://localhost:8080/usuarios/login",
                     type: "post",
-                    data: {
+                    contentType: 'application/json',
+                    data: JSON.stringify({
                         login: $("#txtLogin").val(),
                         senha: $("#txtSenha").val(),
-                    },
+                    }),
                     success: () => {
                         alert('Usuario Logado')
                         window.location.href = '/criarUsuario.html'
