@@ -1,10 +1,13 @@
 package com.lab02.AluguelCarros.controllers;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.net.URI;
 
 import com.lab02.AluguelCarros.dto.UsuarioLoginDTO;
+import com.lab02.AluguelCarros.models.Cliente;
 import com.lab02.AluguelCarros.models.Usuario;
-import com.lab02.AluguelCarros.services.UsuarioService;
+import com.lab02.AluguelCarros.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,25 +20,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping(value = "/usuarios")
-public class UsuarioController {
+@RequestMapping(value = "/clientes")
+public class ClienteController {
 
     @Autowired
-    private UsuarioService service;
+    private ClienteService service;
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Usuario obj) {
+    public ResponseEntity<Void> insert(@RequestBody Cliente obj) {
         obj.setId(null); // Pois se vir com id, vai atualizar ao invés de criar um novo
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}").buildAndExpand(obj.getId()).toUri(); // Para retornar a URL dessa nova Usuario salva no header
+                    .path("/{id}").buildAndExpand(obj.getId()).toUri(); // Para retornar a URL dessa nova Cliente salva no header
         return ResponseEntity.created(uri).build(); // .created() gerar status 201
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Usuario obj, @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@RequestBody Cliente obj, @PathVariable Integer id) {
         obj.setId(id); // Para garantir que o ID da requisição é o mesmo do corpo
-        Usuario objProcurado = service.find(id);
+        Cliente objProcurado = service.find(id);
         obj.setNome( obj.getNome()!=null ? obj.getNome() : objProcurado.getNome() );
         obj.setLogin( obj.getLogin()!=null ? obj.getLogin() : objProcurado.getLogin() );
         obj.setSenha( obj.getSenha()!=null ? obj.getSenha() : objProcurado.getSenha() );
@@ -51,9 +54,23 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Usuario> buscar(@PathVariable Integer id) {
-        Usuario obj = service.find(id);
+    public ResponseEntity<Cliente> buscar(@PathVariable Integer id) {
+        Cliente obj = service.find(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Cliente>> buscarTodos() {
+        List<Usuario> usuarios = service.findAll();
+        List<Cliente> clientes = new LinkedList<Cliente>();
+        for (Usuario usuario : usuarios) {
+            try {
+                clientes.add((Cliente) usuario);
+            } catch (Exception e) {
+                usuarios.remove(usuario);
+            }
+        }
+        return ResponseEntity.ok().body(clientes);
     }
 
     @RequestMapping(value="/login", method=RequestMethod.POST)
@@ -61,7 +78,7 @@ public class UsuarioController {
         String login = usuarioLoginDTO.getLogin();
         String senha = usuarioLoginDTO.getSenha();
         
-        Usuario obj = service.findByLogin(login);
+        Cliente obj = service.findByLogin(login);
 
         ResponseEntity<Void> entity = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if(obj.getSenha().equals(senha))

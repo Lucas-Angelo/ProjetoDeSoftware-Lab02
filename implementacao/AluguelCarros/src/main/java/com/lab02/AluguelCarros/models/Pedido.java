@@ -2,17 +2,19 @@ package com.lab02.AluguelCarros.models;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-@Inheritance
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lab02.AluguelCarros.models.enums.PedidoStatus;
+
 @Entity
-public abstract class Usuario implements Serializable {
+public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,18 +22,19 @@ public abstract class Usuario implements Serializable {
     private Integer id;
 
     @NotNull
-    @Column(unique = true)
-    protected String login;
-    @NotNull
-    protected String senha;
+    private PedidoStatus status;
 
-    public Usuario() {
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    @JsonIgnore
+    private Cliente cliente;
+
+    public Pedido() {
     }
 
-    public Usuario(Integer id, String login, String senha) {
+    public Pedido(Integer id, PedidoStatus status) {
         this.id = id;
-        this.login = login;
-        this.senha = senha;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -42,20 +45,20 @@ public abstract class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return this.login;
+    public Cliente getCliente() {
+        return this.cliente;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public String getSenha() {
-        return this.senha;
+    public PedidoStatus getStatus() {
+        return this.status;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setStatus(PedidoStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -72,14 +75,14 @@ public abstract class Usuario implements Serializable {
             return true;
         if (obj == null)
             return false;
-        if (!(obj instanceof Usuario))
+        if (!(obj instanceof Pedido))
             return false;
-        Usuario other = (Usuario) obj;
+        Pedido other = (Pedido) obj;
         if (id == null)
             if (other.id != null)
                 return false;
-        else if (!id.equals(other.id))
-            return false;
+            else if (!id.equals(other.id))
+                return false;
         return true;
     }
 }

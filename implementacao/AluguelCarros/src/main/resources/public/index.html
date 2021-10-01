@@ -60,7 +60,7 @@
             $("#formUsuario").on("submit", function(ev){
                 ev.preventDefault()
                 $.ajax({
-                    url: "http://localhost:8080/usuarios/login",
+                    url: "http://localhost:8080/clientes/login",
                     type: "post",
                     contentType: 'application/json',
                     data: JSON.stringify({
