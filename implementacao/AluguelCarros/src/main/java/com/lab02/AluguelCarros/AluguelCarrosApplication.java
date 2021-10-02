@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 import com.lab02.AluguelCarros.models.Cliente;
 import com.lab02.AluguelCarros.models.Pedido;
+import com.lab02.AluguelCarros.models.Veiculo;
 import com.lab02.AluguelCarros.models.enums.PedidoStatus;
 import com.lab02.AluguelCarros.repositories.ClienteRepository;
 import com.lab02.AluguelCarros.repositories.PedidoRepository;
+import com.lab02.AluguelCarros.repositories.VeiculoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +22,8 @@ public class AluguelCarrosApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
+	private VeiculoRepository veiculoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AluguelCarrosApplication.class, args);
@@ -30,15 +34,22 @@ public class AluguelCarrosApplication implements CommandLineRunner {
 		Cliente cliente1 = new Cliente(null, "Gui", "gui", "supersenha");
 		Cliente cliente2 = new Cliente(null, "Henrique", "henrique", "supersenha");
 		Cliente cliente3 = new Cliente(null, "Lucas", "lucas", "supersenha");
-		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
 
 		Pedido pedido1 = new Pedido(null, PedidoStatus.APROVADO);
 		Pedido pedido2 = new Pedido(null, PedidoStatus.NEGADO);
-
 		cliente1.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
 		pedido1.setCliente(cliente1);
 		pedido2.setCliente(cliente1);
 
+		Veiculo veiculo1 = new Veiculo(null, "AAA3030", "Tesla", "Voador");
+		Veiculo veiculo2 = new Veiculo(null, "AAA3031", "Tesla", "Terrestre");
+		veiculo1.getPedidos().addAll(Arrays.asList(pedido1));
+		veiculo2.getPedidos().addAll(Arrays.asList(pedido2));
+		pedido1.setVeiculo(veiculo1);
+		pedido2.setVeiculo(veiculo2);
+
+		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
+		veiculoRepository.saveAll(Arrays.asList(veiculo1, veiculo2));
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 	}
 

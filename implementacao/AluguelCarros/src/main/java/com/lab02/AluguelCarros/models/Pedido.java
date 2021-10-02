@@ -25,9 +25,13 @@ public class Pedido implements Serializable {
     private PedidoStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "clienteid")
     @JsonIgnore
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "veiculoid")
+    private Veiculo veiculo;
 
     public Pedido() {
     }
@@ -59,6 +63,14 @@ public class Pedido implements Serializable {
 
     public void setStatus(PedidoStatus status) {
         this.status = status;
+    }
+
+    public Veiculo getVeiculo() {
+        return this.veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
     @Override
