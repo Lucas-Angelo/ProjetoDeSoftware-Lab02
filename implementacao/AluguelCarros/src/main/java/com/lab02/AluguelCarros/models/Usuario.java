@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Inheritance
 @Entity
 public abstract class Usuario implements Serializable {
@@ -50,6 +52,7 @@ public abstract class Usuario implements Serializable {
         this.login = login;
     }
 
+    @JsonIgnore
     public String getSenha() {
         return this.senha;
     }

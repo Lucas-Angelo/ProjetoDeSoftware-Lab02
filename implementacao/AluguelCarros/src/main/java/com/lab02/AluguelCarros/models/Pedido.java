@@ -26,11 +26,12 @@ public class Pedido implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "clienteid")
-    @JsonIgnore
+    @NotNull
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "veiculoid")
+    @NotNull
     private Veiculo veiculo;
 
     public Pedido() {
@@ -49,6 +50,7 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
+    @JsonIgnore
     public Cliente getCliente() {
         return this.cliente;
     }

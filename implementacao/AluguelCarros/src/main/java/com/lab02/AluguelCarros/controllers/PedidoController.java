@@ -3,8 +3,14 @@ package com.lab02.AluguelCarros.controllers;
 import java.util.List;
 import java.net.URI;
 
+import com.lab02.AluguelCarros.dto.PedidoNovoDTO;
+import com.lab02.AluguelCarros.models.Cliente;
 import com.lab02.AluguelCarros.models.Pedido;
+import com.lab02.AluguelCarros.models.Veiculo;
+import com.lab02.AluguelCarros.models.enums.PedidoStatus;
+import com.lab02.AluguelCarros.services.ClienteService;
 import com.lab02.AluguelCarros.services.PedidoService;
+import com.lab02.AluguelCarros.services.VeiculoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +27,20 @@ public class PedidoController {
 
     @Autowired
     private PedidoService service;
+    @Autowired
+    private VeiculoService veiculoService;
+    @Autowired
+    private ClienteService clienteService;
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Pedido obj) {
-        obj.setId(null); // Pois se vir com id, vai atualizar ao invés de criar um novo
+    public ResponseEntity<Void> insert(@RequestBody PedidoNovoDTO pedidoNovoDTO) {
+        Veiculo veiculo = veiculoService.find(pedidoNovoDTO.getVeiculoid());
+        Cliente cliente = clienteService.find(pedidoNovoDTO.getClienteid());
+        
+        Pedido obj = new Pedido(null, PedidoStatus.PENDENTE); // Ao criar status é pendente
+        obj.setVeiculo(veiculo);
+        obj.setCliente(cliente);
+
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}").buildAndExpand(obj.getId()).toUri(); // Para retornar a URL dessa nova Pedido salva no header

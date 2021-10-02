@@ -74,15 +74,15 @@ public class ClienteController {
     }
 
     @RequestMapping(value="/login", method=RequestMethod.POST)
-    public ResponseEntity<Void> login(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
+    public ResponseEntity<Cliente> login(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
         String login = usuarioLoginDTO.getLogin();
         String senha = usuarioLoginDTO.getSenha();
         
         Cliente obj = service.findByLogin(login);
 
-        ResponseEntity<Void> entity = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        ResponseEntity<Cliente> entity = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if(obj.getSenha().equals(senha))
-            entity = new ResponseEntity<>(HttpStatus.OK);
+            entity = new ResponseEntity<Cliente>(obj, HttpStatus.CREATED);
         return entity;
     }
 
