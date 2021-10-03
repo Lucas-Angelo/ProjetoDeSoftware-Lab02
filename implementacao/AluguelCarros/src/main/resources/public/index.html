@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="row">
                         <div class="col">
-                            <div class="aluguel-title text-center">
+                            <div class="aluguel-menu text-center">
                                 <img src="./img/car.png" alt="Logo Aluguel">
                                 <h1>Aluguel de Carros</h1>
                             </div>
@@ -60,16 +60,18 @@
             $("#formUsuario").on("submit", function(ev){
                 ev.preventDefault()
                 $.ajax({
-                    url: "http://localhost:8080/clientes/login",
+                    url: "/clientes/login",
                     type: "post",
                     contentType: 'application/json',
                     data: JSON.stringify({
                         login: $("#txtLogin").val(),
                         senha: $("#txtSenha").val(),
                     }),
-                    success: () => {
+                    success: res => {
+                        localStorage.setItem('alugeluid', res.id)
+                        localStorage.setItem('alugelunome', res.nome)
                         alert('Usuario Logado')
-                        window.location.href = '/criarUsuario.html'
+                        window.location.href = '/veiculo.html'
                     },
                     error: () => {
                         alert('Usuário ou senha incorretos')

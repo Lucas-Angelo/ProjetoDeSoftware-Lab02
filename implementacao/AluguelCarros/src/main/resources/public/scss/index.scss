@@ -5,11 +5,25 @@ body{
 
 .aluguel{
     &-title{
-        margin: 10px 20px;
+        margin-right: 40px;
         h1{
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            display: inline;
+            font-family: 'Rubik', sans-serif;
+        }
+        img{
+            width: 30px;
+        }
+    }
+    &-menu{
+        h1{
+            font-size: 1.6rem;
             display: inline;
             font-family: 'Rubik', sans-serif;
         }
     }
+}
+
+.nomeusuario{
+    margin-left: 10px;
 }

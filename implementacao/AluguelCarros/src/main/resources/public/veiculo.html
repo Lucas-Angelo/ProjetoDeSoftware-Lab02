@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
+    <title>Alugel de Carros</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="aluguel-title">
+                            <img src="./img/car.png" alt="Logo Aluguel">
+                            <h1>Aluguel de Carros</h1>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./usuario.html">Usuários</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="./veiculo.html">Veículos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./pedido.html">Pedidos</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-5">
+                                <path d="M1.84333 21C1.84 20.9999 1.83407 20.9996 1.8258 20.999C1.80226 20.9973 1.7621 20.9934 1.71127 20.985C1.60489 20.9672 1.47833 20.9336 1.36388 20.8764C1.25334 20.8211 1.17323 20.7539 1.11851 20.6719C1.06796 20.596 1 20.45 1 20.1667C1 19.5068 1.35888 17.9303 2.76961 16.5196C4.15103 15.1382 6.62756 13.8333 11 13.8333C15.3724 13.8333 17.849 15.1382 19.2304 16.5196C20.6411 17.9303 21 19.5068 21 20.1667C21 20.45 20.932 20.596 20.8815 20.6719C20.8268 20.7539 20.7467 20.8211 20.6361 20.8764C20.5217 20.9336 20.3951 20.9672 20.2887 20.985C20.2379 20.9934 20.1977 20.9973 20.1742 20.999C20.1659 20.9996 20.16 20.9999 20.1567 21H1.84333ZM14.182 8.68198C13.3381 9.52589 12.1935 10 11 10C9.80653 10 8.66193 9.52589 7.81802 8.68198C6.97411 7.83807 6.5 6.69347 6.5 5.5C6.5 4.30653 6.97411 3.16193 7.81802 2.31802C8.66193 1.47411 9.80653 1 11 1C12.1935 1 13.3381 1.47411 14.182 2.31802C15.0259 3.16193 15.5 4.30653 15.5 5.5C15.5 6.69347 15.0259 7.83807 14.182 8.68198Z" stroke="black" stroke-width="2"/>
+                            </svg>
+                            <span class="nomeusuario"></span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Lista de Veiculos
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#veiculoModal">
+                    Cadastrar novo Veiculo
+                </button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-bordered tablevei">
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Fabricante</th>
+                            <th>Modelo</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tablevei-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="veiculoModal" tabindex="-1" aria-labelledby="veiculoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <form id="formUsuario">
+                            <div class="row mb-3 mt-3">
+                                <div class="col">
+                                    <svg width="27" height="27" viewBox="0 0 27 27" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M2.25788 26C2.25309 25.9998 2.24166 25.9994 2.22457 25.9981C2.18963 25.9957 2.13319 25.9902 2.06284 25.9785C1.91739 25.9542 1.73875 25.9076 1.57221 25.8243C1.40959 25.743 1.27739 25.6368 1.18361 25.4961C1.09401 25.3617 1 25.1375 1 24.75C1 23.8818 1.46304 21.8887 3.23836 20.1134C4.98436 18.3673 8.08589 16.75 13.5 16.75C18.9141 16.75 22.0156 18.3673 23.7616 20.1134C25.537 21.8887 26 23.8818 26 24.75C26 25.1375 25.906 25.3617 25.8164 25.4961C25.7226 25.6368 25.5904 25.743 25.4278 25.8243C25.2613 25.9076 25.0826 25.9542 24.9372 25.9785C24.8668 25.9902 24.8104 25.9957 24.7754 25.9981C24.7583 25.9994 24.7469 25.9998 24.7421 26H2.25788ZM17.5659 10.8159C16.4875 11.8942 15.025 12.5 13.5 12.5C11.975 12.5 10.5125 11.8942 9.43414 10.8159C8.3558 9.73753 7.75 8.27499 7.75 6.75C7.75 5.22501 8.3558 3.76247 9.43414 2.68414C10.5125 1.6058 11.975 1 13.5 1C15.025 1 16.4875 1.6058 17.5659 2.68414C18.6442 3.76247 19.25 5.22501 19.25 6.75C19.25 8.27499 18.6442 9.73753 17.5659 10.8159Z"
+                                            stroke="black" stroke-width="2" />
+                                    </svg>
+                                    <h3 class="d-inline">
+                                        Cadastrar Veiculo
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="txtNome" class="form-label">Fabricante</label>
+                                    <input required type="text" class="form-control" id="txtFabricante"
+                                        placeholder="Escreva a fabricante (Obrigatório)">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="txtLogin" class="form-label">Modelo</label>
+                                    <input required type="text" class="form-control" id="txtModelo"
+                                        placeholder="Escreva o modelo (Obrigatório)">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="txtSenha" class="form-label">Placa</label>
+                                    <input required type="text" class="form-control" id="txtPlaca"
+                                        placeholder="Escreva a placa (Obrigatório)" maxlength="9" min="6">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <button class="btn btn-md d-block w-100 btn-primary" id="btnSubmit" type="submit">
+                                        Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            listaVeiculo()
+            const modal = new bootstrap.Modal(document.getElementById('veiculoModal'))
+
+
+            $("#formUsuario").on("submit", function (ev) {
+                ev.preventDefault()
+                $.ajax({
+                    url: "/veiculos",
+                    type: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        marca: $("#txtFabricante").val(),
+                        modelo: $("#txtModelo").val(),
+                        placa: $("#txtPlaca").val(),
+                    }),
+                    success: () => {
+                        alert('Veiculo cadastrado')
+                        listaVeiculo()
+                        modal.hide()
+                    },
+                    error: () => {
+                        alert('Falha do servidor.')
+                    }
+                });
+            })
+        });
+        function listaVeiculo(){
+            $(".tablevei-body").html('')
+            $.ajax({
+                url: "http://localhost:8080/veiculos",
+                type: "get",
+                contentType: 'application/json',
+                success: res => {
+                    res.forEach(function (item) {
+                        $(".tablevei-body").append(`<tr><td>${item.placa}</td><td>${item.marca}</td><td>${item.modelo}</td><td><button class="btn btn-primary" onclick="fazerPedido(${item.id})">Fazer um Pedido</button></td></tr>`)
+                    });
+
+                },
+                error: () => {
+                    alert('Falha do servidor ao carregar dados.')
+                }
+            });
+        }
+        function fazerPedido(veiculoID){
+            const answer = confirm("Tem certeza que deseja fazer o pedido ?");
+            if(answer) {
+                $.ajax({
+                    url: "/pedidos",
+                    type: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        veiculoid: veiculoID,
+                        clienteid: localStorage.getItem('alugeluid')
+                    }),
+                    success: () => {
+                        alert('Pedido registrado')
+                    },
+                    error: () => {
+                        alert('Falha do servidor.')
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

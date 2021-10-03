@@ -52,7 +52,7 @@ public abstract class Usuario implements Serializable {
         this.login = login;
     }
 
-    @JsonIgnore
+
     public String getSenha() {
         return this.senha;
     }
