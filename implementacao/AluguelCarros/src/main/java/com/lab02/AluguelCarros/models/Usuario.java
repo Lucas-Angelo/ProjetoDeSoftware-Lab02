@@ -11,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Inheritance
 @Entity
@@ -25,6 +26,7 @@ public abstract class Usuario implements Serializable {
     @Column(unique = true)
     protected String login;
     @NotNull
+    @JsonIgnore
     protected String senha;
 
     public Usuario() {
@@ -52,11 +54,12 @@ public abstract class Usuario implements Serializable {
         this.login = login;
     }
 
-
+    @JsonIgnore
     public String getSenha() {
         return this.senha;
     }
 
+    @JsonProperty
     public void setSenha(String senha) {
         this.senha = senha;
     }
